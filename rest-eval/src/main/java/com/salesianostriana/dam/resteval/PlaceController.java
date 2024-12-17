@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.resteval;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -7,19 +8,49 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/place/")
+@RequiredArgsConstructor
 public class PlaceController {
 
-    private PlaceRepository placeRepository;
+    private PlaceService service;
 
     @GetMapping
-    public List<Place> getAll(){
-        List<Place>places = placeRepository.getAll();
-        if (places.isEmpty())
-            ResponseEntity.notFound();
-        return placeRepository.getAll();
+    public ListGetPlaceDto getAll(){ // Devuelve una lista de Dto
+        return ListGetPlaceDto.ListToDto(
+                service.getAll()
+        );
     }
+
+    @GetMapping("{id}")
+    public Place getById(@PathVariable Long id){
+        return service.getById(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<Place> create(
+            @RequestBody CreatePlaceDto dto
+    ){
+        return ResponseEntity.status(201).body(dto.toPlace());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @GetMapping("/{id}")
     public Optional<Place> getById(@PathVariable long id){

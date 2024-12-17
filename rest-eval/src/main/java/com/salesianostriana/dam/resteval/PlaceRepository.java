@@ -3,6 +3,7 @@ package com.salesianostriana.dam.resteval;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +18,26 @@ public class PlaceRepository {
     @PostConstruct
     public void init() {
 
-
-
-        Place place1 = Place.builder()
-                .name("Restaurante1")
-                .address("Calle feria, Sevilla")
-                .coords("34.555343, 32.555523")
-                .desc("Restaurante sobre 1")
-                .tags()
-                .image("url de ejemplo")
-                .build();
+        add(
+                Place.builder()
+                        .name("adasd")
+                        .desc("adsdsadasd")
+                        .coords("10,230")
+                        .address("Puerto del escudo")
+                        .image("http//")
+                        .tags(new ArrayList<>(List.of("Moderno", "Singular")))
+                        .build()
+        );
+        add(
+                Place.builder()
+                        .name("qewewq")
+                        .desc("qwewqewewqeqw")
+                        .coords("20,450")
+                        .address("Condes de bustillo")
+                        .image("http//")
+                        .tags(new ArrayList<>(List.of("Modernon't", "Singuarn't")))
+                        .build()
+        );
     }
 
     public Place add(Place place) {
