@@ -7,8 +7,7 @@ public record GetPlaceDto(
         String image
 ) {
 
-    public static GetPlaceDto placeToDto(Place place){
-
+    public static GetPlaceDto of (Place place) {
         return new GetPlaceDto(
                 place.getId(),
                 place.getName(),
@@ -16,4 +15,5 @@ public record GetPlaceDto(
                 place.getImage()
         );
     }
+
 }

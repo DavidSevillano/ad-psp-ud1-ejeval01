@@ -7,15 +7,20 @@ public record ListGetPlaceDto(
         List<GetPlaceDto> items
 ) {
 
-    public static ListGetPlaceDto ListToDto(List<Place> list){
+    public static ListGetPlaceDto of(List<Place> list) {
         return new ListGetPlaceDto(
                 list.size(),
                 list.stream()
-                        .map(GetPlaceDto::placeToDto)
-                        //.map(p -> GetPlaceDto.placeToDto(p)) Otra forma de hacerse con una expresión lambda
+                        /*.map(new Function<Place, GetPlaceDto>() {
+
+                            @Override
+                            public GetPlaceDto apply(Place place) {
+                                return GetPlaceDto.of(place);
+                            }
+                        })*/
+                        //.map(p -> GetPlaceDto.of(p))
+                        .map(GetPlaceDto::of)
                         .toList()
         );
     }
-
-
 }

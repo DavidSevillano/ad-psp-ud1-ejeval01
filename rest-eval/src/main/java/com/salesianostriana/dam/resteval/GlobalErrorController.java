@@ -7,14 +7,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class GlobalErrorController extends ResponseEntityExceptionHandler {
+public class GlobalErrorController
+        extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(PlaceNotFoundException.class)
-    public ProblemDetail notFound (PlaceNotFoundException exception) {
+    public ProblemDetail notFound(PlaceNotFoundException ex) {
         var result = ProblemDetail
                 .forStatusAndDetail(
-                        HttpStatus.NOT_FOUND, exception.getMessage());
+                        HttpStatus.NOT_FOUND, ex.getMessage());
         return result;
     }
+
 
 }

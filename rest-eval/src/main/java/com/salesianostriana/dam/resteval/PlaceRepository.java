@@ -17,25 +17,25 @@ public class PlaceRepository {
 
     @PostConstruct
     public void init() {
-
+        // Añadir aquí datos de ejemplo
         add(
                 Place.builder()
-                        .name("adasd")
-                        .desc("adsdsadasd")
-                        .coords("10,230")
-                        .address("Puerto del escudo")
-                        .image("http//")
-                        .tags(new ArrayList<>(List.of("Moderno", "Singular")))
+                        .name("Lugar 1")
+                        .desc("asdfg asdfg")
+                        .coords("0,0")
+                        .address("Betis 40")
+                        .image("http://")
+                        .tags(new ArrayList<>(List.of("Moderno", "Singular", "Vistas panorámicas")))
                         .build()
         );
         add(
                 Place.builder()
-                        .name("qewewq")
-                        .desc("qwewqewewqeqw")
-                        .coords("20,450")
-                        .address("Condes de bustillo")
-                        .image("http//")
-                        .tags(new ArrayList<>(List.of("Modernon't", "Singuarn't")))
+                        .name("Lugar 2")
+                        .desc("qwert qwert")
+                        .coords("10,10")
+                        .address("Condes de Bustillo 17")
+                        .image("http://")
+                        .tags(new ArrayList<>(List.of("Triana", "Clásico")))
                         .build()
         );
     }
@@ -66,6 +66,11 @@ public class PlaceRepository {
         }));
     }
 
+    public Optional<Place> completeEdit(Long id, Place place) {
+        return Optional.ofNullable(places.computeIfPresent(id, (k,v) -> {
+            return place;
+        }));
+    }
     public void delete(Long id) {
         places.remove(id);
     }

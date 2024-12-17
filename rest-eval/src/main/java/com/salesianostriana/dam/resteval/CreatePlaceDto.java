@@ -2,29 +2,29 @@ package com.salesianostriana.dam.resteval;
 
 public record CreatePlaceDto(
         String name,
-        String desc,
         String address,
         String coords,
-        String image
+        String image,
+        String desc
 ) {
 
-   /* public static Place toPlace(CreatePlaceDto dto){
+   /* public static Place toPlace(CreatePlaceDto dto) {
         return Place.builder()
                 .name(dto.name)
+                .address(dto.address)
                 .desc(dto.desc)
-                .coords(dto.coords)
                 .image(dto.image)
+                .coords(dto.coords)
                 .build();
-    }
-    */
+    }*/
 
-
-    public Place toPlace(CreatePlaceDto dto){
+    public Place toPlace() {
         return Place.builder()
-                .name(dto.name)
-                .desc(dto.desc)
-                .coords(dto.coords)
-                .image(dto.image)
+                .name(this.name)
+                .address(this.address)
+                .desc(this.desc)
+                .image(this.image)
+                .coords(this.coords)
                 .build();
     }
 

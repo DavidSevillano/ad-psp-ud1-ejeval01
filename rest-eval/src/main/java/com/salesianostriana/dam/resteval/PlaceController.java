@@ -2,74 +2,69 @@ package com.salesianostriana.dam.resteval;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/place/")
 @RequiredArgsConstructor
 public class PlaceController {
 
-    private PlaceService service;
+    private final PlaceService service;
 
     @GetMapping
-    public ListGetPlaceDto getAll(){ // Devuelve una lista de Dto
-        return ListGetPlaceDto.ListToDto(
+    public ListGetPlaceDto getAll() {
+        return ListGetPlaceDto.of(
                 service.getAll()
         );
     }
 
     @GetMapping("{id}")
-    public Place getById(@PathVariable Long id){
+    public Place getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @PostMapping
     public ResponseEntity<Place> create(
             @RequestBody CreatePlaceDto dto
-    ){
-        return ResponseEntity.status(201).body(dto.toPlace());
+    ) {
+        return ResponseEntity.status(201)
+                .body(
+                        service.create(dto.toPlace())
+                );
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @GetMapping("/{id}")
-    public Optional<Place> getById(@PathVariable long id){
-        return placeRepository.get(id);
+    @PutMapping("{id}")
+    public Place edit(@PathVariable Long id,
+                      @RequestBody CreatePlaceDto dto) {
+        return service.edit(id, dto.toPlace());
     }
 
-    @PostMapping()
-    public Place add(Place place){
-        return placeRepository.add(place);
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(
+            @PathVariable Long id
+    ) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping
-    public void edit(@PathVariable long id, Place place){
-
+    @PutMapping("{id}/tag/add/{tag}")
+    public Place addTag(
+            @PathVariable Long id,
+            @PathVariable String tag
+    ) {
+        return service.addTagToPlace(id, tag);
     }
 
-    @DeleteMapping
-    public void delete(@PathVariable long id){
-
+    @PutMapping("{id}/tag/del/{tag}")
+    public Place delTag(
+            @PathVariable Long id,
+            @PathVariable String tag
+    ) {
+        return service.deleteTagFromPlace(id, tag);
     }
+
 
 }
