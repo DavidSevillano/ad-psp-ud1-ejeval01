@@ -16,7 +16,17 @@ public class PlaceRepository {
 
     @PostConstruct
     public void init() {
-        // Añadir aquí datos de ejemplo
+
+
+
+        Place place1 = Place.builder()
+                .name("Restaurante1")
+                .address("Calle feria, Sevilla")
+                .coords("34.555343, 32.555523")
+                .desc("Restaurante sobre 1")
+                .tags()
+                .image("url de ejemplo")
+                .build();
     }
 
     public Place add(Place place) {
